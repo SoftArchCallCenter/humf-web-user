@@ -41,10 +41,10 @@ export default function navbar({showFull}) {
 							</div>
 							<div className="hidden sm:ml-6 sm:block">
 								<div className="flex space-x-4">
-								<a href="/kitchen" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-								{showFull && (
+								<a href="/home" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
+								{true && (
 									<>
-										<a href="/menu" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Menu</a>
+										<a href="/menu" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Restaurant</a>
 										<a href="/queue" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Queue</a>
 										<a href="/ticket" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Ticket</a>
 									</>
@@ -82,10 +82,10 @@ export default function navbar({showFull}) {
 				{isMobileMenuOpen && (
 				<div className="sm:hidden" id="mobile-menu">
 					<div className="space-y-1 px-2 pb-3 pt-2">
-						<a href="/kitchen" className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Home</a>
+						<a href="/home" className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Home</a>
 						{showFull && (
 							<>
-								<a href="/menu" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Menu</a>
+								<a href="/restaurant" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Restaurant</a>
 								<a href="/queue" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Queue</a>
 								<a href="/ticket" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Ticket</a>
 							</>
