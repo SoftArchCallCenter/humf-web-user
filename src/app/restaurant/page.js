@@ -9,7 +9,7 @@ export default function Home() {
           <li>
             <div className="px-4 py-5 sm:px-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">Item 1</h3>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Restaurant 1</h3>
                 {/* <p className="mt-1 max-w-2xl text-sm text-gray-500">Description for Item 1</p> */}
               </div>
               <div className="mt-4 flex items-center justify-between">
@@ -21,7 +21,7 @@ export default function Home() {
 					<li>
             <div className="px-4 py-5 sm:px-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">Item 1</h3>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Restaurant 2</h3>
                 {/* <p className="mt-1 max-w-2xl text-sm text-gray-500">Description for Item 1</p> */}
               </div>
               <div className="mt-4 flex items-center justify-between">

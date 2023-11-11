@@ -31,14 +31,14 @@ export default function Home() {
     addRestaurant({userId, ...formData}).then((result) => {
       if (!result.err){
         console.log(result.result)
-        router.push("/kitchen")
+        router.push("/home")
       }
     })
   };
 
   return (
     <main className="min-h-screen flex-col justify-between">
-      <Navbar showFull = {false}/>
+      <Navbar showFull = {true}/>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-sky-300">
