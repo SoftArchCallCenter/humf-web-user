@@ -11,7 +11,7 @@ export default function Home() {
     if(isSignIn){
       router.push("/home")
     }
-  })
+  },[])
 
   const [formData, setFormData] = useState({
     email: '',

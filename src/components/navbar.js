@@ -1,13 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react"
 import { logout } from "@/logic/user"
+import { getUserId, getUserById } from "@/logic/user";
 
-export default function navbar({showFull}) {
+export default function navbar({showFull, profile_url}) {
 	const router = useRouter();
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen)
@@ -20,6 +22,9 @@ export default function navbar({showFull}) {
 	const signOut = () => {
 		logout().then(({err,result}) => {
 			if (!err){
+			  console.log(sessionStorage)
+			//   sessionStorage.removeItem("access_token");
+			//   sessionStorage.removeItem("refresh_token");
 			  sessionStorage.clear();
         	  router.push("/")
 			}
@@ -71,7 +76,7 @@ export default function navbar({showFull}) {
 									<button type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="userMenuButton" aria-expanded={isOpen} aria-haspopup="true" onClick={toggleMenu}>
 										<span className="absolute -inset-1.5"></span>
 										<span className="sr-only">Open user menu</span>
-										<img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
+										<img className="h-8 w-8 rounded-full" src={profile_url} alt=""/>
 									</button>
 								</div>
 								{isOpen && (
