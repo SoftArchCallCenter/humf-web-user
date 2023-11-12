@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
 import { deleteRestaurant, getRestaurantByUserId } from "@/logic/restaurant";
 import { getUserId, getUserById } from "@/logic/user";
+import Image from 'next/image'
+
 
 export default function Home() {
 	const router = useRouter();
@@ -12,6 +14,7 @@ export default function Home() {
 	useEffect(() => {
 		const userId = getUserId(router)
 		getUserById(userId).then(({err, result}) => {
+			console.log(result)
 			if(err){
 				console.log("error")
 				setUser(null)
@@ -40,14 +43,19 @@ export default function Home() {
 			}
 		})
 	}
+
 	const homePage = (user) => {
         console.log(user)
+		// const src = user.profilePictureUrl;
 		if (user) {
 			return (
 				<div className="mt-10 flex items-center justify-center">
 					<div className="w-80 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 						<h5 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{user.name}</h5>
-						<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Address : {user.email}</p>
+						<Image src={user.profilePictureUrl} unoptimized width={500} height={500}/>
+						{/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pic : {user.profilePictureUrl}</p> */}
+						<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Username : {user.username}</p>
+						<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Email : {user.email}</p>
 						{/* Do profile pic too */}
 					</div>
 				</div>
