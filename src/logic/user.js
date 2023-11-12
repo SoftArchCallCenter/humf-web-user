@@ -128,8 +128,8 @@ const editUser  = async (UpdateUserDto) => {
             headers: {
                 "Authorization": `Bearer ${access_token}`,
                 "Content-Type": "application/json",
-                body: JSON.stringify(UpdateUserDto),
-            }
+                
+            }, body: JSON.stringify(UpdateUserDto),
         });
         console.log(respone)
         const result = await respone.json();

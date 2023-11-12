@@ -26,24 +26,6 @@ export default function Home() {
 
 	},[])
 
-	// useEffect(() => {
-	// 	if (restaurant){
-	// 		sessionStorage.setItem("resId", restaurant.id)
-	// 	} else {
-	// 		sessionStorage.removeItem("resId")
-	// 	}
-	// },[restaurant])
-
-	const removeRestaurant = (resId) => {
-		deleteRestaurant(resId).then(({err, result}) => {
-			if (err){
-				console.log("error")
-			} else {
-				location.reload();
-			}
-		})
-	}
-
 	const homePage = (user) => {
         console.log(user)
 		// const src = user.profilePictureUrl;
