@@ -20,7 +20,10 @@ export default function navbar({showFull}) {
 	const signOut = () => {
 		logout().then(({err,result}) => {
 			if (!err){
-			  sessionStorage.clear();
+			  console.log(sessionStorage)
+			  sessionStorage.removeItem("access_token");
+			  sessionStorage.removeItem("refresh_token");
+			//   sessionStorage.clear();
         	  router.push("/")
 			}
 		})
