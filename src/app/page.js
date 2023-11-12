@@ -28,7 +28,8 @@ export default function Home() {
     const isOk = true
     if (isOk) {
       // set user session
-      sessionStorage.setItem('user', JSON.stringify({...formData, userId : 5}))
+      // Change userid here
+      sessionStorage.setItem('user', JSON.stringify({...formData, userId : 1}))
       location.reload();
     } 
   };
