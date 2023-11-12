@@ -30,7 +30,6 @@ export default function Home() {
 		e.preventDefault()
     addRestaurant({userId, ...formData}).then((result) => {
       if (!result.err){
-        console.log(result.result)
         router.push("/home")
       }
     })

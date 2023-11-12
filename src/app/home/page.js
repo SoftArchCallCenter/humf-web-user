@@ -15,12 +15,9 @@ export default function Home() {
 	useEffect(() => {
 		const userId = getUserId(router)
 		getUserById(userId).then(({err, result}) => {
-			console.log(result)
 			if(err){
-				console.log("error")
 				setUser(null)
 			} else {
-				console.log(result)
 				setUser(result)
 				sessionStorage.setItem("profile_url", result.profilePictureUrl)
 			}
@@ -30,8 +27,6 @@ export default function Home() {
 	},[])
 
 	const homePage = (user) => {
-        console.log(user)
-		// const src = user.profilePictureUrl;
 		if (user) {
 			return (
 				<div className="mt-10 flex items-center justify-center">
