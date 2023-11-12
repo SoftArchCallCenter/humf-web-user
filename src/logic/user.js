@@ -113,14 +113,6 @@ const getUserById = async (userId) => {
 }
 //Help
 const editUser  = async (UpdateUserDto) => {
-    // try{
-    //     const respone = await fetch(`${AUTH_URL}/signup`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(signupUserDto),
-    //     });
     try{
         const access_token = sessionStorage.getItem("access_token")
         const respone = await fetch(`${USER_URL}/${userId}`, {
