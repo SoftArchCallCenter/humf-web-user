@@ -52,7 +52,13 @@ export default function Home() {
 				<div className="mt-10 flex items-center justify-center">
 					<div className="w-80 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 						<h5 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{user.name}</h5>
-						<Image src={user.profilePictureUrl} unoptimized width={500} height={500}/>
+						<Image 
+							src={user.profilePictureUrl} 
+							unoptimized 
+							width={500} 
+							height={500}
+							alt = "Picture of user"
+						/>
 						{/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pic : {user.profilePictureUrl}</p> */}
 						<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Username : {user.username}</p>
 						<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Email : {user.email}</p>
