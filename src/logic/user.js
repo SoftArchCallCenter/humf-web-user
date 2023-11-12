@@ -72,9 +72,7 @@ const logout = async () => {
                 "Authorization": `Bearer ${access_token}`,
             }
         });
-        console.log(respone)
         const result = await respone.json();
-        console.log(result)
         if (!respone.ok) {
             return {err:true, result: null};
         } else {
@@ -96,9 +94,7 @@ const getUserById = async (userId) => {
                 "Authorization": `Bearer ${access_token}`,
             }
         });
-        console.log(respone)
         const result = await respone.json();
-        console.log(result)
         if (!respone.ok) {
             return {err:true, result: null};
         } else {
@@ -112,28 +108,23 @@ const getUserById = async (userId) => {
     
 }
 //Help
-const editUser  = async (UpdateUserDto) => {
-    // try{
-    //     const respone = await fetch(`${AUTH_URL}/signup`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(signupUserDto),
-    //     });
+const editUser  = async (userId, UpdateUserDto) => {
     try{
+        // console.log(userId);
+        // 
+        // Use Object.entries to get an array of [key, value] pairs
+        const entries = Object.entries(UpdateUserDto);
+        const filteredEntries = entries.filter(([key, value]) => value !== '');
+        UpdateUserDto = Object.fromEntries(filteredEntries);
         const access_token = sessionStorage.getItem("access_token")
         const respone = await fetch(`${USER_URL}/${userId}`, {
             method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${access_token}`,
                 "Content-Type": "application/json",
-                
             }, body: JSON.stringify(UpdateUserDto),
         });
-        console.log(respone)
         const result = await respone.json();
-        console.log(result)
         if (!respone.ok) {
             return {err:true, result: null};
         } else {

@@ -3,15 +3,18 @@ import Navbar from "@/components/navbar"
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { signup } from "@/logic/user"
-import { getUserId, getUserById } from "@/logic/user";
+import { getUserId, getUserById, editUser } from "@/logic/user";
 
 
 export default function Home() {
   const router = useRouter();
   const [profile_url, setProfile] = useState(null)
+  const [userId, setUserId] = useState(null)
 
   useEffect(() => {
     const profile = sessionStorage.getItem("profile_url")
+    const userId = getUserId(router)
+    setUserId(userId)
     setProfile(profile)
   }, [])
 
@@ -29,7 +32,7 @@ export default function Home() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-    signup(formData).then(({err,result}) => {
+    editUser(userId, formData).then(({err,result}) => {
       if (!err){
         router.push("/home")
       }
@@ -55,7 +58,6 @@ export default function Home() {
                 type="text"
 								value={formData.username}
 								onChange={handleInputChange}
-                required
               />
             </div>
             {/* {formData.username === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)} */}
@@ -73,7 +75,6 @@ export default function Home() {
                 type="email"
 								value={formData.email}
 								onChange={handleInputChange}
-                required
               />
             </div>
             {/* {formData.email === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)} */}
@@ -91,7 +92,6 @@ export default function Home() {
                 type="password"
 								value={formData.password}
 								onChange={handleInputChange}
-                // required
               />
             </div>
             {/* {formData.password === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)} */}
