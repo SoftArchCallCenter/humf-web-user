@@ -1,18 +1,26 @@
 "use client"
 import Navbar from "@/components/navbar"
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signup } from "@/logic/user"
 import { getUserId, getUserById } from "@/logic/user";
 
+
 export default function Home() {
   const router = useRouter();
+  const [profile_url, setProfile] = useState(null)
+
+  useEffect(() => {
+    const profile = sessionStorage.getItem("profile_url")
+    setProfile(profile)
+  }, [])
 
 	const [formData, setFormData] = useState({
     email: '',
     password: '',
     username: '',
   });
+  
 
 	const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -113,7 +121,7 @@ export default function Home() {
     }
     return (
 		<main className="min-h-screen flex-col justify-between">
-			<Navbar showFull = {formData}/>
+			<Navbar showFull = {true} profile_url = {profile_url}/>
 			{homePage(formData)}
 		</main>
 		

@@ -10,6 +10,7 @@ import Image from 'next/image'
 export default function Home() {
 	const router = useRouter();
 	const [user, setUser] = useState(null)
+	const DEFAULT_IMG_URL = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
 
 	useEffect(() => {
 		const userId = getUserId(router)
@@ -21,8 +22,10 @@ export default function Home() {
 			} else {
 				console.log(result)
 				setUser(result)
+				sessionStorage.setItem("profile_url", result.profilePictureUrl)
 			}
 		})
+		
 
 	},[])
 
@@ -68,7 +71,7 @@ export default function Home() {
 	}
 	return (
 		<main className="min-h-screen flex-col justify-between">
-			<Navbar showFull = {user}/>
+			<Navbar showFull = {user} profile_url = {(user) ? user.profilePictureUrl : DEFAULT_IMG_URL}/>
 			{homePage(user)}
 		</main>
 		

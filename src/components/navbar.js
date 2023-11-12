@@ -5,38 +5,11 @@ import { useEffect, useState } from "react"
 import { logout } from "@/logic/user"
 import { getUserId, getUserById } from "@/logic/user";
 
-export default function navbar({showFull}) {
+export default function navbar({showFull, profile_url}) {
 	const router = useRouter();
-	const [user, setUser] = useState(null)
-	const [profile_url, set_profile] = useState(null)
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-	useEffect(() => {
-		const userId = getUserId(router)
-		set_profile("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80")
-		getUserById(userId).then(({err, result}) => {
-			console.log(result)
-			if(err){
-				console.log("error")
-				setUser(null)
-			} else {
-				console.log(result)
-				setUser(result)
-			}
-		})
-
-	},[])
-
-	useEffect(() => {
-		if (user){
-			set_profile(user.profilePictureUrl)
-			// profile_url = user.profilePictureUrl
-		} else {
-			set_profile("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80")
-
-		}
-	},[user])
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen)
@@ -50,9 +23,9 @@ export default function navbar({showFull}) {
 		logout().then(({err,result}) => {
 			if (!err){
 			  console.log(sessionStorage)
-			  sessionStorage.removeItem("access_token");
-			  sessionStorage.removeItem("refresh_token");
-			//   sessionStorage.clear();
+			//   sessionStorage.removeItem("access_token");
+			//   sessionStorage.removeItem("refresh_token");
+			  sessionStorage.clear();
         	  router.push("/")
 			}
 		})
