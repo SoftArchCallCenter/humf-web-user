@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { logout } from "@/logic/user"
 
 export default function navbar({showFull}) {
 	const router = useRouter();
@@ -17,8 +18,12 @@ export default function navbar({showFull}) {
 	}
 
 	const signOut = () => {
-		sessionStorage.removeItem('user')
-		router.push("/")
+		logout().then(({err,result}) => {
+			if (!err){
+			  sessionStorage.clear();
+        	  router.push("/")
+			}
+		})
 	}
 
 	return (

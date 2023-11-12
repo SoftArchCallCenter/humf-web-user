@@ -1,17 +1,15 @@
 "use client"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signup } from "@/logic/user"
 
 export default function Home() {
   const router = useRouter();
 
 	const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    email: '',
     password: '',
-    city: '',
-    state: 'New Mexico',
-    zip: '',
+    username: '',
   });
 
 	const handleInputChange = (e) => {
@@ -21,12 +19,11 @@ export default function Home() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-    console.log(formData)
-    // const isOk = userSingUp(formData) sign up user
-    const isOk = true
-    if (isOk) {
-      router.push("/")
-    }  
+    signup(formData).then(({err,result}) => {
+      if (!err){
+        router.push("/")
+      }
+    })
   };
 
 	return (
@@ -37,39 +34,57 @@ export default function Home() {
       <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>							
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-sky-200">
-							First Name
+            <label htmlFor="username" className="block text-sm font-medium leading-6 text-sky-200">
+							Username
             </label>
             <div className="my-2">
               <input
 								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                id="firstname"
-                name="firstName"
+                id="username"
+                name="username"
                 type="text"
-								placeholder="Jane"
-								value={formData.firstName}
+								value={formData.username}
 								onChange={handleInputChange}
                 required
               />
             </div>
-            {formData.firstName === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)}
+            {formData.username === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)}
           </div>
 
-          <div>
-						<label htmlFor="password" className="block text-sm font-medium leading-6 text-sky-200">
-							Last Name
-						</label>
-            <div className="mt-2">
+          <div>							
+            <label htmlFor="email" className="block text-sm font-medium leading-6 text-sky-200">
+							Email
+            </label>
+            <div className="my-2">
               <input
 								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                id="lastname"
-                name="lastName"
-                type="text"
-                placeholder="Doe"
-								value={formData.lastName}
+                id="email"
+                name="email"
+                type="email"
+								value={formData.email}
 								onChange={handleInputChange}
+                required
               />
             </div>
+            {formData.email === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)}
+          </div>
+
+          <div>							
+            <label htmlFor="password" className="block text-sm font-medium leading-6 text-sky-200">
+							Password
+            </label>
+            <div className="my-2">
+              <input
+								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                id="password"
+                name="password"
+                type="password"
+								value={formData.password}
+								onChange={handleInputChange}
+                required
+              />
+            </div>
+            {formData.password === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)}
           </div>
 
           <div>

@@ -1,12 +1,13 @@
 "use client"
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
+import { login } from "@/logic/user"
 
 export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    const isSignIn = sessionStorage.getItem('user') 
+    const isSignIn = sessionStorage.getItem("access_token")
     if(isSignIn){
       router.push("/home")
     }
@@ -25,12 +26,16 @@ export default function Home() {
 	const handleSubmit = (e) => {
 		e.preventDefault()
     // const isOk = userSingIn(formData) sign in user
-    const isOk = true
-    if (isOk) {
-      // set user session
-      sessionStorage.setItem('user', JSON.stringify({...formData, userId : 5}))
-      location.reload();
-    } 
+    login(formData).then(({err,result}) => {
+      console.log({err,result})
+      if (!err){
+        sessionStorage.setItem("access_token", result.access_token)
+        sessionStorage.setItem("refresh_token", result.refresh_token)
+        location.reload();
+      } else {
+        alert(`invalid email or password`)
+      }
+    })
   };
   
   return (
@@ -45,7 +50,7 @@ export default function Home() {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-sky-200">
-              Email address
+              Email
             </label>
             <div className="mt-2">
               <input
