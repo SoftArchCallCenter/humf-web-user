@@ -39,6 +39,12 @@ export default function Home() {
 							height={500}
 							alt = "Picture of user"
 						/>
+						<a href="/editimage" className="inline-flex items-center px-1 py-0.5 text-xs font-small text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-10 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-2">
+							Change profile pic
+							{/* <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"> */}
+								{/* <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/> */}
+							{/* </svg> */}
+						</a>
 						{/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Pic : {user.profilePictureUrl}</p> */}
 						<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Username : {user.username}</p>
 						<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Email : {user.email}</p>
