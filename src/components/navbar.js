@@ -50,8 +50,8 @@ export default function navbar({showFull}) {
 								{true && (
 									<>
 										<a href="/restaurant" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Restaurant</a>
-										<a href="/queue" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Queue</a>
 										<a href="/ticket" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Ticket</a>
+										<a href="/history" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">History</a>
 									</>
 								)}
 								</div>
@@ -91,8 +91,8 @@ export default function navbar({showFull}) {
 						{showFull && (
 							<>
 								<a href="/restaurant" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Restaurant</a>
-								<a href="/queue" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Queue</a>
 								<a href="/ticket" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Ticket</a>
+								<a href="/history" className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">History</a>
 							</>
 						)}
 					</div>

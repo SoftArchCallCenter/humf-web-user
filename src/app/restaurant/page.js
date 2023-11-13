@@ -1,29 +1,48 @@
 "use client"
 import Navbar from "@/components/navbar"
-import { getAllRestaurant } from "@/logic/restaurant";
+import { getRestaurantDetails, getFilterRestaurant } from "@/logic/restaurant";
+import { getUserId } from "@/logic/user";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const [restaurantList, setRestaurantList] = useState(null)
+  const [result, setResult] = useState(null)
+  const [allRestaurantList, setAllRestaurantList] = useState(null)
 
   useEffect(() => {
-
-    getAllRestaurant().then(({err, result}) => {
+    const userId = getUserId(router)
+    getRestaurantDetails().then(({err, result}) => {
 			if(err){
 				console.log("error")
-				setRestaurantList(null)
 			} else {
-				console.log(result)
-				setRestaurantList(result.Restaurant)
+				setResult(result)
+        // console.log(result.restaurantList)
+        setAllRestaurantList(result.restaurantList)
 			}
 		})
-
   },[])
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    time: '',
+  });
 
-  const showRestaurantList = (restaurantList) => {
-    if (restaurantList){
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+		e.preventDefault()
+    const filterResult = getFilterRestaurant(allRestaurantList, formData);
+    const {totalTicketList} = result
+    setResult({restaurantList: filterResult, totalTicketList})
+  };
+
+  const showRestaurantList = (result) => {
+    if (result){
+      const {restaurantList, totalTicketList} = result
       return (
         <>
         {
@@ -33,6 +52,7 @@ export default function Home() {
                 <div className="px-4 py-5 sm:px-6">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">{restaurant.name}</h3>
+                    <p className="text-sm font-medium text-gray-500">Queue: <span className="text-green-600">{totalTicketList.get(restaurant.id)}</span></p>
                   </div>
                   <div className="mt-4 flex items-center justify-between">
                     <p className="text-sm font-medium text-gray-500">Open Time: <span className="text-green-600">{restaurant.openTime}</span></p>
@@ -63,11 +83,45 @@ export default function Home() {
   return (
     <main className="min-h-screen flex-col justify-between">
       <Navbar />
-      <div className="text-right relative">
-      </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <ul className="rounded-lg bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16">
-          {showRestaurantList(restaurantList)}  
+      <div className="mt-10">
+        <div className="flex justify-center">
+          <form className="flex items-center" onSubmit={handleSubmit}>
+            <div className="flex items-center">
+              <label htmlFor="name" className="block text-sm font-medium leading-6 text-sky-200">Name:</label>
+              <div className="ms-2">
+                <input
+                  id="name"
+                  name="name"
+                  type="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="ps-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              <label htmlFor="time" className="block text-sm font-medium leading-6 text-sky-200 ms-2">Time:</label>
+              <div className="ms-2">
+                <input
+                  id="time"
+                  name="time"
+                  type="time"
+                  value={formData.time}
+                  onChange={handleInputChange}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="flex ms-2 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Search
+                  </button>
+                </div>
+            </div>
+          </form>
+        </div>
+        <ul className="rounded-lg bg-white shadow overflow-hidden sm:rounded-md max-w-sm mx-auto mt-5">
+          {showRestaurantList(result)}  
         </ul>
       </div>
     </main>
