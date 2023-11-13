@@ -4,8 +4,12 @@ const RESTAURANT_URL = `${API_GATEWAY_URL}/restaurant`
 
 const getAllRestaurant = async()=>{
     try{
+        const access_token = sessionStorage.getItem("access_token")
         const respone = await fetch(`${RESTAURANT_URL}`, {
             method: "GET",
+            headers: {
+                "Authorization": `Bearer ${access_token}`,
+            }
         });
         const result = await respone.json();
         if (!respone.ok) {
@@ -22,9 +26,12 @@ const getAllRestaurant = async()=>{
 
 const getRestaurantByUserId = async (userId) => {
     try{
-
+        const access_token = sessionStorage.getItem("access_token")
         const respone = await fetch(`${RESTAURANT_URL}/user/${userId}`, {
             method: "GET",
+            headers: {
+                "Authorization": `Bearer ${access_token}`,
+            }
         });
         const result = await respone.json();
         if (!respone.ok) {

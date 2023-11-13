@@ -1,15 +1,17 @@
-import { API_GATEWAY_URL } from "@/variable";
+const { API_GATEWAY_URL } = require("@/variable");
 
-const MENU_URL = `${API_GATEWAY_URL}/menu`
+const QUEUE_URL = `${API_GATEWAY_URL}/queue`
 
-const getAllMenuByRestaurant = async (resId) => {
+const createOrder = async (order) => {
     try{
         const access_token = sessionStorage.getItem("access_token")
-        const respone = await fetch(`${MENU_URL}/res/${resId}`, {
-            method: "GET",
+        const respone = await fetch(`${QUEUE_URL}/order`, {
+            method: "POST",
             headers: {
+                "Content-Type": "application/json",
                 "Authorization": `Bearer ${access_token}`,
-            }
+            },
+            body: JSON.stringify(order),
         });
         const result = await respone.json();
         if (!respone.ok) {
@@ -17,12 +19,13 @@ const getAllMenuByRestaurant = async (resId) => {
         } else {
             return {err:false, result};
         }
-    } catch (error) {
+
+    }catch(error){
         console.log(error)
         return {err:true, result: null};
     }
 }
 
 module.exports = {
-    getAllMenuByRestaurant
+    createOrder
 }

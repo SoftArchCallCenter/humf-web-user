@@ -33,9 +33,9 @@ export default function Home() {
                 <div className="px-4 py-5 sm:px-6">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">{restaurant.name}</h3>
-                    <p className="text-sm font-medium text-gray-500">Open Time: <span className="text-green-600">{restaurant.openTime}</span></p>
                   </div>
                   <div className="mt-4 flex items-center justify-between">
+                    <p className="text-sm font-medium text-gray-500">Open Time: <span className="text-green-600">{restaurant.openTime}</span></p>
                     <p className="text-sm font-medium text-gray-500 break-all">Close Time: <span className="text-green-600">{restaurant.closeTime}</span></p>
                   </div>
                   <div className="mt-4 flex items-center justify-between">
