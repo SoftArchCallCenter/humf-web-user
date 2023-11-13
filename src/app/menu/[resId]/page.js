@@ -25,6 +25,12 @@ export default function Home({params}) {
 
   },[])
 
+  const handleOrderMenu = (menuId) => {
+    console.log(menuId)
+    alert("Menu was Ordered")
+    // order logic
+  }
+
   const showmenuList = (menuList) => {
     if (menuList){
       return (
@@ -40,6 +46,7 @@ export default function Home({params}) {
                   </div>
                   <div className="mt-4 flex items-center justify-between">
                     <p className="text-sm font-medium text-gray-500 break-all">Description: <span className="text-green-600">{menu.description}</span></p>
+                    <a href={`/menu/${restaurant.id}`} className="pl-1 font-medium text-cyan-600 hover:text-red-800" onClick={() => handleOrderMenu(menu.id)}>Order</a>
                   </div>
                 </div>
               </li>
