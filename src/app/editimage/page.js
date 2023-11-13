@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar"
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { signup } from "@/logic/user"
-import { getUserId, getUserById, editUser } from "@/logic/user";
+import { getUserId, uploadImage } from "@/logic/user";
 import Image from 'next/image'
 
 
@@ -12,6 +12,8 @@ export default function Home() {
   const router = useRouter();
   const [profile_url, setProfile] = useState(null)
   const [userId, setUserId] = useState(null)
+  const [selectedFile, setSelectedFile] = useState();
+  const [checkFile, setCheckFile] = useState(false);
 
   useEffect(() => {
     const profile = sessionStorage.getItem("profile_url")
@@ -20,62 +22,71 @@ export default function Home() {
     setUserId(userId)
     setProfile(profile)
   }, [])
+  const [imgData, setImgData] = useState(null)
 
-	const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    username: '',
-  });
-  
+    const imageHandler = (e) => {
+      setSelectedFile(e.target.files[0]);
+      setCheckFile(true);
+      // if(selectedFile.name){
+      //   setCheckFile(true);
+      // } else{
+      //   setCheckFile(false);
+      // }
+    } 
 
-	const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
+    const imagesubmission = () => {
+      if (checkFile) {
+          alert("File Uploaded");
+          console.log(selectedFile);
+      } else {
+          // setCheckFile(true);
+          alert("select a file");
+      }
+    }
 	const handleSubmit = (e) => {
 		e.preventDefault()
-    editUser(userId, formData).then(({err,result}) => {
+    // console.log(e)
+    // console.log(document.getElementById("file"))
+    document.getElementById('file')
+                .addEventListener('change', event => {
+                    const files = event.target.files;
+                    const formData = new FormData();
+                    formData.append('image', files[0]);
+                    console.log("file"+{files})})
+    
+    uploadImage(userId, imgData).then(({err,result}) => {
       if (!err){
         router.push("/home")
       }
     })
   };
-  const homePage = (formData) => {
+  const homePage = (imgData) => {
 	return (
 		<main className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
       </div>
-      <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Profile now</p>
-        <Image 
-            src={profile_url} 
-            unoptimized 
-            width={500} 
-            height={500}
-            alt = "Previous Image"
-        />
-
-          <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Confirm changes
-            </button>
-          </div>
-        </form>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> </p>
-
+      <>
+            {/* <div className="h-screen bg-gray-700 flex justify-center items-center px-2"> */}
+                <div className="w-[320px] grid gap-2 mt-20 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div className="h-24 cursor-pointer relative flex justify-center items-center border-2 rounded-md bg-blue-700">
+                        <input type="file" name="file" onChange={imageHandler} className="z-20 opacity-0 cursor-pointer h-full w-full" />
+                        <div className="absolute flex justify-center items-center gap-2">
+                            <img className={`h-10 w-10 rounded-full ${checkFile?'opacity-1':'opacity-0'}`} src={selectedFile ? URL.createObjectURL(selectedFile) : null} />
+                            <span className="text-[18px] w-56 truncate">{selectedFile?selectedFile.name:'Choose a file'}</span>
+                        </div>        
+                    </div>
+                    <button onClick={imagesubmission} className="w-full h-14 bg-green-600 text-white rounded-md">Upload</button>
+                </div>
+            {/* </div> */}
+      </>
+      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
         <div>
             <a href="/home" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Cancel
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
 		    </a>
         </div>
-
       </div>
 		</main>
 	)
@@ -83,7 +94,7 @@ export default function Home() {
     return (
 		<main className="min-h-screen flex-col justify-between">
 			<Navbar showFull = {true} profile_url = {profile_url}/>
-			{homePage(formData)}
+			{homePage(imgData)}
 		</main>
 		
 	)

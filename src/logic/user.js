@@ -1,7 +1,7 @@
 import { API_GATEWAY_URL } from "@/variable";
 
 const AUTH_URL = `${API_GATEWAY_URL}/auth`
-const USER_URL = `${API_GATEWAY_URL}/users`
+const USER_URL = `${API_GATEWAY_URL}/user`
 
 const getUserId = (router) => {
     const access_token = sessionStorage.getItem("access_token")
