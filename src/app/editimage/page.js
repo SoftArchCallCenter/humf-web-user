@@ -26,12 +26,12 @@ export default function Home() {
 
     const imageHandler = (e) => {
       setSelectedFile(e.target.files[0]);
-      setCheckFile(true);
-      // if(selectedFile.name){
-      //   setCheckFile(true);
-      // } else{
-      //   setCheckFile(false);
-      // }
+      // setCheckFile(true);
+      if(e.target.files[0]){
+        setCheckFile(true);
+      } else{
+        setCheckFile(false);
+      }
     } 
 
     const imagesubmission = () => {
@@ -43,23 +43,7 @@ export default function Home() {
           alert("select a file");
       }
     }
-	const handleSubmit = (e) => {
-		e.preventDefault()
-    // console.log(e)
-    // console.log(document.getElementById("file"))
-    document.getElementById('file')
-                .addEventListener('change', event => {
-                    const files = event.target.files;
-                    const formData = new FormData();
-                    formData.append('image', files[0]);
-                    console.log("file"+{files})})
-    
-    uploadImage(userId, imgData).then(({err,result}) => {
-      if (!err){
-        router.push("/home")
-      }
-    })
-  };
+
   const homePage = (imgData) => {
 	return (
 		<main className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -73,7 +57,7 @@ export default function Home() {
                         <input type="file" name="file" onChange={imageHandler} className="z-20 opacity-0 cursor-pointer h-full w-full" />
                         <div className="absolute flex justify-center items-center gap-2">
                             <img className={`h-10 w-10 rounded-full ${checkFile?'opacity-1':'opacity-0'}`} src={selectedFile ? URL.createObjectURL(selectedFile) : null} />
-                            <span className="text-[18px] w-56 truncate">{selectedFile?selectedFile.name:'Choose a file'}</span>
+                            <span className="text-[18px] w-56 truncate">{checkFile?selectedFile.name:'Choose a file'}</span>
                         </div>        
                     </div>
                     <button onClick={imagesubmission} className="w-full h-14 bg-green-600 text-white rounded-md">Upload</button>
