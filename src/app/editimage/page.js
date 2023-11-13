@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { signup } from "@/logic/user"
 import { getUserId, getUserById, editUser } from "@/logic/user";
+import Image from 'next/image'
+
 
 
 export default function Home() {
@@ -13,6 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     const profile = sessionStorage.getItem("profile_url")
+    console.log("profile: "+profile)
     const userId = getUserId(router)
     setUserId(userId)
     setProfile(profile)
@@ -46,56 +49,14 @@ export default function Home() {
       </div>
       <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>							
-            <label htmlFor="username" className="block text-sm font-medium leading-6 text-sky-200">
-							New Username
-            </label>
-            <div className="my-2">
-              <input
-								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                id="username"
-                name="username"
-                type="text"
-								value={formData.username}
-								onChange={handleInputChange}
-              />
-            </div>
-            {/* {formData.username === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)} */}
-          </div>
-
-          <div>							
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-sky-200">
-							New Email
-            </label>
-            <div className="my-2">
-              <input
-								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                id="email"
-                name="email"
-                type="email"
-								value={formData.email}
-								onChange={handleInputChange}
-              />
-            </div>
-            {/* {formData.email === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)} */}
-          </div>
-
-          <div>							
-            <label htmlFor="password" className="block text-sm font-medium leading-6 text-sky-200">
-							New Password
-            </label>
-            <div className="my-2">
-              <input
-								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                id="password"
-                name="password"
-                type="password"
-								value={formData.password}
-								onChange={handleInputChange}
-              />
-            </div>
-            {/* {formData.password === '' && (<p className="text-red-500 text-xs italic">Please fill out this field.</p>)} */}
-          </div>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Profile now</p>
+        <Image 
+            src={profile_url} 
+            unoptimized 
+            width={500} 
+            height={500}
+            alt = "Previous Image"
+        />
 
           <div>
             <button

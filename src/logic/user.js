@@ -138,11 +138,40 @@ const editUser  = async (userId, UpdateUserDto) => {
     
 }
 
+const uploadImage = async(userId, UpdateUserDto) => {
+    // try{
+    //     // Implement later, wait for apigateway
+    //     const entries = Object.entries(UpdateUserDto);
+    //     const filteredEntries = entries.filter(([key, value]) => value !== '');
+    //     UpdateUserDto = Object.fromEntries(filteredEntries);
+    //     const access_token = sessionStorage.getItem("access_token")
+    //     const respone = await fetch(`${USER_URL}/${userId}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Authorization": `Bearer ${access_token}`,
+    //             "Content-Type": "application/json",
+    //         }, body: JSON.stringify(UpdateUserDto),
+    //     });
+    //     const result = await respone.json();
+    //     if (!respone.ok) {
+    //         return {err:true, result: null};
+    //     } else {
+    //         return {err:false, result};
+    //     }
+
+    // } catch (error) {
+    //     console.log(error)
+    //     return {err:true, result: null};
+    // }
+    
+}
+
 module.exports = {
     getUserId,
     signup,
     login,
     logout,
     getUserById,
-    editUser
+    editUser,
+    uploadImage
 }
