@@ -60,9 +60,11 @@ const getRestaurantDetails = async () => {
         }
         const result1 = restaurantList.result.Restaurant
         const map = new Map();
-        totalTicketList.result.totals.forEach(item => {
-            map.set(item.resId,item.total)
-        })
+        if(totalTicketList.result.totals){
+            totalTicketList.result.totals.forEach(item => {
+                map.set(item.resId,item.total)
+            })
+        }
         return {err:false, result:{
             restaurantList: result1,
             totalTicketList: map
