@@ -27,7 +27,7 @@ export default function Home() {
 		e.preventDefault()
     // const isOk = userSingIn(formData) sign in user
     login(formData).then(({err,result}) => {
-      console.log({err,result})
+      // console.log({err,result})
       if (!err){
         sessionStorage.setItem("access_token", result.access_token)
         sessionStorage.setItem("refresh_token", result.refresh_token)

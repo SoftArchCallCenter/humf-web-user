@@ -78,7 +78,7 @@ const getRestaurantDetails = async () => {
 
 const getFilterRestaurant = (allRestaurantList, formData) => {
     // console.log(allRestaurantList)
-    console.log(formData)
+    // console.log(formData)
     const result = allRestaurantList.filter((res) => {
         const regex = new RegExp(formData.name);
         return regex.test(res.name)
@@ -93,7 +93,7 @@ const getFilterRestaurant = (allRestaurantList, formData) => {
         // console.log(openTime,closeTime,compareTime)
         return compareDate >= openDate && compareDate <= closeDate;
     })
-    console.log(result)
+    // console.log(result)
     return result
 }
 

@@ -34,7 +34,7 @@ export default function Home() {
     const imagesubmission = (selectedFile,userId) => {
       if (checkFile) {
           alert("Uploading");
-          console.log(selectedFile);
+          // console.log(selectedFile);
           uploadImage(selectedFile,userId).then(({err,result}) => {
             if(err){
               console.log(err)

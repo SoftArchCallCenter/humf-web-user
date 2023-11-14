@@ -61,7 +61,7 @@ export default function Home({params}) {
   }
 
   const handleOrderMenu = (orderList) => {
-    console.log(orderList)
+    // console.log(orderList)
     // order logic
     orderList = orderList.map((order) => {
       const {resId, ...orderField} = order;

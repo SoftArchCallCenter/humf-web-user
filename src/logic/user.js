@@ -158,7 +158,7 @@ const uploadImage = async (selectedFile, userId) => {
             body: formData
         });
         const result = await respone.json();
-        console.log(result)
+        // console.log(result)
         if (!respone.ok) {
             return {err:true, result: null};
         } else {

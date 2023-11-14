@@ -20,7 +20,7 @@ export default function Home() {
       if(err){
         console.log("error")
       } else {
-        console.log(result)
+        // console.log(result)
         if (result.tickets){
           setTicketList(result.tickets)
         } else {
@@ -28,7 +28,7 @@ export default function Home() {
         } 
       }
     })
-	})
+	}, [])
 
   useEffect(() => {
     if (ticketList){

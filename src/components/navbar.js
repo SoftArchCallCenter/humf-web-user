@@ -2,14 +2,33 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
-import { logout } from "@/logic/user"
-import { getUserId, getUserById } from "@/logic/user";
+import { getUserId, logout } from "@/logic/user"
+import { getNotiByUserId } from "@/logic/noti";
 
 export default function navbar({showFull, profile_url}) {
 	const router = useRouter();
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [haveNoti, setHaveNoti] = useState(false);
 
+	useEffect(() => {
+		const lastTime = sessionStorage.getItem("time");
+		const now = new Date();
+		const userId = getUserId();
+		console.log({now})
+		if (lastTime){
+			console.log({lastTime})
+			getNotiByUserId(lastTime, userId).then(({err, result}) => {
+				if (!err){
+					console.log(result)
+				} else {
+					console.log(err)
+				}
+			})
+		} else {
+			sessionStorage.setItem("time", now)
+		}
+	  },[])
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen)
@@ -22,7 +41,7 @@ export default function navbar({showFull, profile_url}) {
 	const signOut = () => {
 		logout().then(({err,result}) => {
 			if (!err){
-			  console.log(sessionStorage)
+			//   console.log(sessionStorage)
 			//   sessionStorage.removeItem("access_token");
 			//   sessionStorage.removeItem("refresh_token");
 			  sessionStorage.clear();

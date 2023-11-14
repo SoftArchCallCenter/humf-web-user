@@ -18,7 +18,7 @@ export default function Home() {
 			if(err){
 				console.log("error")
 			} else {
-				console.log(result)
+				// console.log(result)
         setOrderList(result.result)
 			}
 		})
