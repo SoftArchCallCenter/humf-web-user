@@ -2,16 +2,19 @@ import { API_GATEWAY_URL } from "@/variable";
 
 const NOTIFICATION_URL = `${API_GATEWAY_URL}/notification`
 
-const getNotiByUserId = async (time,userId) => {
+const getNotiByUserId = async (datetime,user_id) => {
     try{
+        datetime = new Date(datetime)
+        datetime = datetime.toISOString();
+        console.log({datetime})
         const access_token = sessionStorage.getItem("access_token")
         const respone = await fetch(`${NOTIFICATION_URL}/user`, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${access_token}`,
             },
-            body: JSON.stringify({time,userId}),
+            body: JSON.stringify({datetime,user_id}),
         });
         const result = await respone.json();
         if (!respone.ok) {

@@ -5,28 +5,32 @@ import { useEffect, useState } from "react"
 import { getUserId, logout } from "@/logic/user"
 import { getNotiByUserId } from "@/logic/noti";
 
-export default function navbar({showFull, profile_url}) {
+export default function navbar({showFull, profile_url, inNotiPage}) {
 	const router = useRouter();
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [haveNoti, setHaveNoti] = useState(false);
 
 	useEffect(() => {
-		const lastTime = sessionStorage.getItem("time");
-		const now = new Date();
-		const userId = getUserId();
-		console.log({now})
-		if (lastTime){
-			console.log({lastTime})
-			getNotiByUserId(lastTime, userId).then(({err, result}) => {
-				if (!err){
-					console.log(result)
-				} else {
-					console.log(err)
-				}
-			})
-		} else {
-			sessionStorage.setItem("time", now)
+		if(!inNotiPage) {
+			const lastTime = sessionStorage.getItem("time");
+			const now = new Date();
+			const userId = getUserId();
+			console.log({now})
+			if (lastTime){
+				console.log({lastTime})
+				getNotiByUserId(lastTime, userId).then(({err, result}) => {
+					if (!err){
+						console.log(result)
+						setHaveNoti(true);
+					} else {
+						console.log(err)						
+						setHaveNoti(false);
+					}
+				})
+			} else {
+				sessionStorage.setItem("time", now)
+			}
 		}
 	  },[])
 
@@ -82,7 +86,7 @@ export default function navbar({showFull, profile_url}) {
 							</div>
 						</div>
 						<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-							<button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+							<button onClick = {()=>{router.push("/noti")}} type="button" className={`relative rounded-full ${haveNoti ? "text-yellow-400 hover:text-yellow-600" : "text-gray-400 hover:text-white"} bg-gray-800 p-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800`}>
 								<span className="absolute -inset-1.5"></span>
 								<span className="sr-only">View notifications</span>
 								<svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
